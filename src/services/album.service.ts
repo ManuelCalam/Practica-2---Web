@@ -22,6 +22,32 @@ class AlbumService{
 
         return albums
     }
+
+    async findById(id: String){
+        const album = await Albums.findById(id).catch((error) => {
+            console.log('Error while connecting to the DB', error)
+        })
+
+        if(!album){
+            throw boom.notFound('Album not found')
+        }
+
+        return album;
+
+    }
+
+    async findByName(name: String){
+        const album = await Albums.findOne({name}).catch((error) => {
+            console.log('Error while connecting to the DB', error)
+        })
+
+        if(!album){
+            throw boom.notFound('Album not found')
+        }
+
+        return album;
+
+    }
 }
 
 

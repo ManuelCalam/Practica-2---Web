@@ -34,5 +34,25 @@ router.get('/', async(req, res, next) =>{
 
 })
 
+router.get('/:id', async(req, res, next) =>{
+    try {
+        const album = await service.findById(req.params.id)
+        res.status(200).json(album)
+
+    } catch (error) {
+        next(error)
+    }
+})
+
+router.get('/', async(req, res, next) =>{
+    try {
+        const album = await service.findById(req.query.name as String)
+        res.status(200).json(album)
+
+    } catch (error) {
+        next(error)
+    }
+})
+
 export default router
 
