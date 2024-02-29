@@ -1,18 +1,21 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import { Album } from './types/album.type';
-import AlbumService from './services/album.service';
+import express from 'express'
 
-const MONGO_URI = 'mongodb://localhost:27017/Practica-2'
+import mongoose from 'mongoose'
+import { logErrors, errorHandler, boomErrorHandler } from './middlewares/error.handler'
 
+import routerApi from './routes'
+import {config} from './config/config'
+
+const {mongoUri, port} = config
 
 const app = express();
+
 app.use(express.json())
-const port = 3010;
+routerApi(app)
 
 const connectDB = () =>{
 
-mongoose.connect(MONGO_URI
+mongoose.connect(mongoUri
 //     , {
 //     useNewUrlParser: true, 
 //     useUnifiedTopology: true
@@ -36,27 +39,10 @@ app.listen(port, () =>{
 })
 
 
-const albumService = new AlbumService()
-
-app.post('/Album', async(req, res) => {
-// const album: Album = {
-//         name: "Donda",
-//         artist: "Kanye West",
-//         genre: "Hip-hop/rap",
-//         release_year: "2021"
-//     } 
-
-    const album: Album = req.body
-
-    const newAlbum = await albumService.create(album)
-
-    res.status(201).json(newAlbum)
-})
+ 
 
 
-app.get('/Album', async(req, res) =>{
-    const albums = await albumService.findAll()
-    // const statusNo = albums.length ? 200 : 404
 
-    res.status(200).json(albums)
-})
+app.use(logErrors)
+app.use(boomErrorHandler)
+app.use(errorHandler)

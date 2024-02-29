@@ -1,5 +1,6 @@
 import Albums from "../models/album.model"
 import { Album, AlbumModel } from "../types/album.type"
+import boom from "@hapi/boom"
 
 class AlbumService{
     async create(album: Album){
@@ -12,8 +13,12 @@ class AlbumService{
     
     async findAll(){
         const albums = await Albums.find().catch((error) => {
-            console.log('Could not find Album')
+            console.log('Error while connecting to DB', error)
         })
+
+        if(!albums){
+            throw boom.notFound('There are bit albums')
+        }
 
         return albums
     }
