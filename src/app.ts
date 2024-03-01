@@ -5,29 +5,21 @@ import { logErrors, errorHandler, boomErrorHandler } from './middlewares/error.h
 
 import routerApi from './routes'
 import {config} from './config/config'
+import passport from 'passport'
+import './utils/auth/'
 
 const {mongoUri, port} = config
 
 const app = express();
 
+app.use(passport.initialize())
 app.use(express.json())
 routerApi(app)
 
+
 const connectDB = () =>{
 
-mongoose.connect(mongoUri
-//     , {
-//     useNewUrlParser: true, 
-//     useUnifiedTopology: true
-// }as ConnectOptions)
- 
-)}
-// .then(() =>{ 
-//    console.log('Connected to Database') 
-// })
-// .catch((error) => {
-//     console.log('Could not connect to Database', error)
-// })
+mongoose.connect(mongoUri)}
 
 app.get('/', (req, res) => {
     res.send("Bye World 222");
