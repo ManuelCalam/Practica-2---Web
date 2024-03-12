@@ -46,9 +46,9 @@ router.get('/:id', passport.authenticate('jwt', {session: false}), async(req, re
     }
 })
 
-router.get('/', passport.authenticate('jwt', {session: false}), async(req, res, next) =>{
+router.get('/:name', passport.authenticate('jwt', {session: false}), async(req, res, next) =>{
     try {
-        const album = await service.findById(req.query.name as String)
+        const album = await service.findByName(req.query.name as string)
         res.status(200).json(album)
 
     } catch (error) {

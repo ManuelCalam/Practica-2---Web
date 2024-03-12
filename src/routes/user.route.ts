@@ -11,7 +11,7 @@ router.post('/', async (req, res, next) =>{
     try {
         const user: User = req.body
         const newUser = await service.create(user)        
-        res.status(201).json({user: newUser})
+        res.status(201).json({user: newUser.toClient()})
     } catch (error) {
         next(error)
     }
