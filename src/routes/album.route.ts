@@ -46,9 +46,39 @@ router.get('/:id', passport.authenticate('jwt', {session: false}), async(req, re
     }
 })
 
-router.get('/:name', passport.authenticate('jwt', {session: false}), async(req, res, next) =>{
+router.get('/name/:name', passport.authenticate('jwt', {session: false}), async(req, res, next) =>{
     try {
-        const album = await service.findByName(req.query.name as string)
+        const album = await service.findByName(req.params.name)
+        res.status(200).json(album)
+
+    } catch (error) {
+        next(error)
+    }
+})
+
+router.get('/artist/:artist', passport.authenticate('jwt', {session: false}), async(req, res, next) =>{
+    try {
+        const album = await service.findByArtist(req.params.artist)
+        res.status(200).json(album)
+
+    } catch (error) {
+        next(error)
+    }
+})
+
+router.get('/genre/:genre', passport.authenticate('jwt', {session: false}), async(req, res, next) =>{
+    try {
+        const album = await service.findByGenre(req.params.genre as string)
+        res.status(200).json(album)
+
+    } catch (error) {
+        next(error)
+    }
+})
+
+router.get('/releaseYear/:release_year', passport.authenticate('jwt', {session: false}), async(req, res, next) =>{
+    try {
+        const album = await service.findByYear(req.params.release_year as string)
         res.status(200).json(album)
 
     } catch (error) {

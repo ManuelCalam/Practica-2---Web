@@ -43,15 +43,18 @@ router.get('/:id', passport.authenticate('jwt', {session: false}), async(req, re
 })
 
 
-router.get('/', passport.authenticate('jwt', {session: false}), async(req, res, next) =>{
+router.get('/name/:name', passport.authenticate('jwt', {session: false}), async(req, res, next) =>{
     try {
-        const genre = await service.findById(req.query.name as String)
+        const genre = await service.findByName(req.params.name)
         res.status(200).json(genre)
 
     } catch (error) {
         next(error)
     }
 })
+
+
+
 
 
 export default router

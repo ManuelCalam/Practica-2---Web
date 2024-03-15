@@ -27,6 +27,8 @@ const Albums = new Schema <Album, AlbumModel>({
         required: true,
         trim: true
     }
+
+    
 })
 
 export default model('Albums', Albums)

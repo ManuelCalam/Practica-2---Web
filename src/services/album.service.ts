@@ -48,6 +48,42 @@ class AlbumService{
         return album;
 
     }
+
+    async findByArtist(artist: String){
+        const album = await Albums.find({artist}).catch((error) => {
+            console.log('Error while connecting to the DB', error)
+        })
+
+        if(!album){
+            throw boom.notFound('Artist not found')
+        }
+
+        return album;
+    }
+
+    async findByGenre(genre: String){
+        const album = await Albums.find({genre}).catch((error) => {
+            console.log('Error while connecting to the DB', error)
+        })
+
+        if(!album){
+            throw boom.notFound('Release year not found')
+        }
+
+        return album;
+    }
+
+    async findByYear(release_year: String){
+        const album = await Albums.find({release_year}).catch((error) => {
+            console.log('Error while connecting to the DB', error)
+        })
+
+        if(!album){
+            throw boom.notFound('Release year not found')
+        }
+
+        return album;
+    }
 }
 
 
