@@ -3,18 +3,14 @@ import { Album } from '../types/album.type';
 import AlbumService from '../services/album.service';
 import passport from 'passport'
 import { UserRequestType } from '../types/user.type'
+import { JwtRequestType } from '../types/genre.type';
+import { ObjectId } from 'mongoose';
 
 const router = express.Router()
 const service = new AlbumService()
 
-router.post('/', passport.authenticate('jwt', {session: false}), async(req, res) => {
-    // const album: Album = {
-    //         name: "Donda",
-    //         artist:  "Kanye West",
-    //         genre: "Hip-hop/rap",
-    //         release_year: "2021"
-    //     } 
-
+router.post('/', passport.authenticate('jwt', {session: false}), async(req: JwtRequestType, res) => {
+        const { genre: sub } = req
         const album: Album = req.body
         const newAlbum = await service.create(album)
         res.status(201).json(newAlbum)

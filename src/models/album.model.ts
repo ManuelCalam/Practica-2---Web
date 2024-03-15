@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose"
 import {Album, AlbumModel} from '../types/album.type'
+import { Genre_Reference } from "./genre.model"
 
 const Albums = new Schema <Album, AlbumModel>({
     name: {
@@ -17,9 +18,8 @@ const Albums = new Schema <Album, AlbumModel>({
     },
 
     genre: {
-        type: String,
-        required: true,
-        trim: true
+        type: Schema.Types.ObjectId,
+        ref: Genre_Reference
     },
 
     release_year: {
@@ -28,7 +28,7 @@ const Albums = new Schema <Album, AlbumModel>({
         trim: true
     }
 
-    
+
 })
 
 export default model('Albums', Albums)

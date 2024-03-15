@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose"
 import {Genre, GenreModel} from '../types/genre.type'
+export const Genre_Reference = 'Genre'
 
 const Genres = new Schema <Genre, GenreModel>({
     name: {
@@ -24,5 +25,7 @@ const Genres = new Schema <Genre, GenreModel>({
 
 })
 
-export default model('Genres', Genres)
+
+
+export default model(Genre_Reference, Genres)
 

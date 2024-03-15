@@ -1,18 +1,22 @@
 import Albums from "../models/album.model"
 import { Album, AlbumModel } from "../types/album.type"
 import boom from "@hapi/boom"
+import {ObjectId} from 'mongoose'
+import { Genre_Reference } from "../models/genre.model"
+
 
 class AlbumService{
     async create(album: Album){
-        const newAlbum = await Albums.create(album).catch((error) => {
+        const newAlbum = await Albums.create({...album}).catch((error) => {
             console.log('Could not save album')
         })
 
-        return newAlbum
+        const existingAlbum = await this.findById((newAlbum as any)._id)
+        return existingAlbum.populate([{ path: 'genre', strictPopulate: false }])
     }
     
     async findAll(){
-        const albums = await Albums.find().catch((error) => {
+        const albums = await Albums.find().populate([{path: 'genre', strictPopulate: false}]).catch((error) => {
             console.log('Error while connecting to DB', error)
         })
 
