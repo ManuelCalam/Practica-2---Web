@@ -42,6 +42,8 @@ router.get('/:id', passport.authenticate('jwt', {session: false}), async(req, re
     }
 })
 
+
+
 router.get('/name/:name', passport.authenticate('jwt', {session: false}), async(req, res, next) =>{
     try {
         const album = await service.findByName(req.params.name)

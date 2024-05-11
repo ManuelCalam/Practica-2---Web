@@ -10,6 +10,7 @@ const routerApi = (app) => {
     app.use('/api/v1', router)
     router.use('/albums', AlbumRouter)
     router.use('/users', UserRouter)
+    router.use('/endpointPrueba', UserRouter)
     router.use('/auth', AuthRouter)
     router.use('/genres', GenreRouter)
 } 

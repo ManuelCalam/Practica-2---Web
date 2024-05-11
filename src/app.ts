@@ -6,6 +6,7 @@ import { logErrors, errorHandler, boomErrorHandler } from './middlewares/error.h
 import routerApi from './routes'
 import {config} from './config/config'
 import passport from 'passport'
+import cors from 'cors'
 import './utils/auth/'
 
 const {mongoUri, port} = config
@@ -14,6 +15,7 @@ const app = express();
 
 app.use(passport.initialize())
 app.use(express.json())
+app.use(cors())
 routerApi(app)
 
 
